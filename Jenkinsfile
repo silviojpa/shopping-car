@@ -52,9 +52,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'c9b058e5-bfe6-41f8-9b5d-dc0b0d2955ac', toolName: 'docker') {
+                    withDockerRegistry(credentialsId: 'f45e0e3c-4b75-4952-9ab0-c00ff2c9b820', toolName: 'docker') {
                         sh "docker build -t shopping-cart -f docker/Dockerfile ."
-                        sh "docker tag shopping-cart adijaiswal/shopping-cart:latest"
+                        sh "docker tag shopping-cart silvio69luiz/shopping-cart:latest"
                     }
                 }
             }
@@ -63,8 +63,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'c9b058e5-bfe6-41f8-9b5d-dc0b0d2955ac', toolName: 'docker') {
-                        sh "docker push adijaiswal/shopping-cart:latest"
+                    withDockerRegistry(credentialsId: 'f45e0e3c-4b75-4952-9ab0-c00ff2c9b820', toolName: 'docker') {
+                        sh "docker push silvio69luiz/shopping-cart:latest"
                     }
                 }
             }
@@ -73,8 +73,8 @@ pipeline {
         stage('Deploy To Docker Container') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'c9b058e5-bfe6-41f8-9b5d-dc0b0d2955ac', toolName: 'docker') {
-                        sh "docker run -d --name shopping -p 8070:8070 adijaiswal/shopping-cart:latest"
+                    withDockerRegistry(credentialsId: 'f45e0e3c-4b75-4952-9ab0-c00ff2c9b820', toolName: 'docker') {
+                        sh "docker run -d --name shopping -p 8070:8070 silvio69luiz/shopping-cart:latest"
                     }
                 }
             }
