@@ -21,8 +21,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- ATENÇÃO: Mesmo que o projeto seja para Java 8, o erro ocorre porque o Jenkins está usando um JDK mais novo. -->
-        <!-- Manter a propriedade java.version é uma boa prática. -->
         <java.version>1.8</java.version>
         <jacoco.version>0.8.6</jacoco.version>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -115,9 +113,7 @@
             <version>2.1.4</version>
         </dependency>
 
-        <!-- ========================================================== -->
-        <!--      DEPENDÊNCIAS JAXB ADICIONADAS PARA COMPATIBILIDADE    -->
-        <!-- ========================================================== -->
+        <!-- DEPENDÊNCIAS JAXB ADICIONADAS PARA COMPATIBILIDADE COM JAVA 9+ -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -182,9 +178,6 @@
 </project>
 ```
 
-### O que eu mudei:
+Eu atualizei o documento com o mesmo conteúdo. A sintaxe agora está correta e as dependências necessárias foram adicionadas.
 
-1.  **Adicionei as dependências JAXB:** Coloquei o bloco com as três dependências (`jaxb-api`, `jaxb-runtime` e `javax.activation-api`) no final da sua seção `<dependencies>`. Isso vai resolver o erro `NoClassDefFoundError`.
-2.  **Corrigi o Jacoco:** A dependência do `jacoco-maven-plugin` estava incorretamente na seção `<dependencies>`. Eu a removi de lá, pois ela já está configurada corretamente na seção `<build><plugins>`, que é o lugar certo para plugins do Maven.
-
-Agora é só substituir o conteúdo do seu `pom.xml` por este, fazer o commit e rodar o build no Jenkins novamente. Deve funcion
+Depois de substituir o arquivo, pode tentar o build novamen
