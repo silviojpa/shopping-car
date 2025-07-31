@@ -1,0 +1,80 @@
+Visão Geral do Pipeline de CI/CD - Projeto Shopping Cart
+Este documento descreve as tecnologias e as etapas utilizadas no pipeline de integração e implantação contínua (CI/CD) deste projeto. O pipeline automatiza o processo de build, teste, análise e deploy da aplicação.
+
+1. Desenvolvimento e Código-Fonte
+Java 8: Linguagem de programação principal utilizada para desenvolver a aplicação.
+
+Spring Boot 1.5.3: Framework base que simplifica a criação de aplicações Spring autônomas e prontas para produção.
+
+Spring Data JPA: Facilita a implementação de repositórios de dados baseados em JPA.
+
+Spring Security: Fornece autenticação e controle de acesso para a aplicação.
+
+Spring Web MVC: Utilizado para construir a arquitetura web da aplicação.
+
+Thymeleaf: Motor de templates Java moderno para a camada de visualização (front-end).
+
+Maven: Ferramenta de automação de build e gerenciamento de dependências do projeto.
+
+Git: Sistema de controle de versão distribuído para gerenciar o código-fonte.
+
+GitHub: Plataforma de hospedagem para o repositório Git.
+
+2. Build e Compilação
+Maven: Utilizado para compilar o código-fonte Java e empacotar a aplicação em um arquivo .jar. O pipeline executa o comando mvn clean compile.
+
+3. Testes
+JUnit: Framework padrão para a execução de testes unitários na aplicação.
+
+Spring Test: Fornece integração entre o Spring Framework e frameworks de teste como o JUnit.
+
+Maven Surefire Plugin: Plugin do Maven responsável por executar os testes unitários durante a fase de test.
+
+Jacoco: Ferramenta para medir a cobertura de código dos testes automatizados. Gera relatórios que são utilizados na etapa de análise de qualidade.
+
+4. Análise de Qualidade de Código
+SonarQube: Plataforma para inspeção contínua da qualidade do código. Analisa o código em busca de bugs, vulnerabilidades, code smells e verifica a cobertura de testes.
+
+5. Verificação de Segurança
+OWASP Dependency-Check: Plugin do Maven que identifica vulnerabilidades conhecidas nas dependências do projeto, ajudando a mitigar riscos de segurança.
+
+6. Empacotamento e Conteinerização
+Docker: Plataforma utilizada para criar, empacotar e executar a aplicação em contêineres. O pipeline constrói uma imagem Docker a partir de um Dockerfile.
+
+7. Publicação de Artefatos
+Nexus Repository Manager: Utilizado como um repositório para armazenar os artefatos de build do Maven (arquivos .jar).
+
+Docker Hub / Registry Privado: Repositório para armazenar e distribuir as imagens Docker geradas pelo pipeline.
+
+8. Implantação (Deploy)
+Docker: A imagem da aplicação é utilizada para iniciar um novo contêiner, efetivamente realizando o deploy da nova versão da aplicação em um ambiente de execução.
+
+9. Orquestração de CI/CD
+Jenkins: Ferramenta de automação que orquestra todo o pipeline, desde o checkout do código no Git até a implantação final. O pipeline é definido como código através de um Jenkinsfile.
+
+10. Notas de Configuração do Projeto
+Correção no pom.xml para Compatibilidade com JDK 9+
+Durante a configuração do pipeline, foi encontrado um erro de build ao executar a fase de testes (mvn test):
+
+Erro: java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException
+
+Causa: O projeto utiliza o Spring Boot 1.5.3 e o Hibernate 5, que dependem das bibliotecas JAXB (Java Architecture for XML Binding). Essas bibliotecas eram parte padrão do JDK até a versão 8, mas foram removidas a partir do JDK 9. Como o ambiente do Jenkins utilizava uma versão mais recente do Java, a classe não foi encontrada.
+
+Solução: Para garantir que o projeto seja autossuficiente e compatível com ambientes Java modernos, as seguintes dependências foram adicionadas explicitamente ao arquivo pom.xml:
+
+<!-- DEPENDÊNCIAS JAXB ADICIONADAS PARA COMPATIBILIDADE COM JAVA 9+ -->
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.1</version>
+</dependency>
+<dependency>
+    <groupId>org.glassfish.jaxb</groupId>
+    <artifactId>jaxb-runtime</artifactId>
+    <version>2.3.1</version>
+</dependency>
+<dependency>
+    <groupId>javax.activation</groupId>
+    <artifactId>javax.activation-api</artifactId>
+    <version>1.2.0</version>
+</dependency>
