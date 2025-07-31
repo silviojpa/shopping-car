@@ -176,8 +176,3 @@
     </distributionManagement>
 
 </project>
-```
-
-Eu atualizei o documento com o mesmo conteúdo. A sintaxe agora está correta e as dependências necessárias foram adicionadas.
-
-Depois de substituir o arquivo, pode tentar o build novamen
