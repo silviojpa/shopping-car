@@ -74,6 +74,8 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'f45e0e3c-4b75-4952-9ab0-c00ff2c9b820', toolName: 'docker') {
+                        sh "docker stop shopping || true"
+                        sh "docker rm shopping || true"
                         sh "docker run -d --name shopping -p 8070:8070 silvio69luiz/shopping-cart:latest"
                     }
                 }
