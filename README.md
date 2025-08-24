@@ -1,6 +1,12 @@
 # Spring Boot Shopping Cart Web App
 
-## About
+
+
+## About![Fluxograma](https://github.com/user-attachments/assets/98e0415b-5930-44a3-b78a-9f1527dc3525)
+
+- AWS (Regra de entrada)
+![Fluxograma](https://github.com/user-attachments/assets/53513eab-6137-4f61-89d8-b94713174ab3)
+
 
 This is a demo project for practicing Spring + Thymeleaf. The idea was to build some basic shopping cart web app.
 
